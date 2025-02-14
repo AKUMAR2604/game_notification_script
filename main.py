@@ -15,17 +15,15 @@ def rawg_api():
 
 def get_game_data(api_key, base_url):
     week_ago = dt.datetime.now() - dt.timedelta(days=7)
-    response = requests.get(f"{base_url}/games?key={api_key}&dates={week_ago.strftime('%Y-%m-%d')},{dt.datetime.now().strftime('%Y-%m-%d')}&ordering=-added")
-    #response = requests.get(f"{base_url}/games?key={api_key}")
+    try:
+        response = requests.get(f"{base_url}/games?key={api_key}&dates={week_ago.strftime('%Y-%m-%d')},{dt.datetime.now().strftime('%Y-%m-%d')}&ordering=-added")
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        return f"error:{e}"
 
     games_data=[]
     for game in response.json()["results"]:
-        games_data.append({
-            "name": game["name"],
-            "released": game["released"],
-            "genres": game["genres"],
-            #"description": game["description"]
-        })
+        #
         
     return games_data
 
