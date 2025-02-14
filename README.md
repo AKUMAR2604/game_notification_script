@@ -1,1 +1,1 @@
-# game-notification_script
+# game_notification_script
