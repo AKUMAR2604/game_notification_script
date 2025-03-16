@@ -6,7 +6,9 @@ import datetime as dt
 from smtplib import SMTP
 from email.mime.text import MIMEText
 import ssl
+import regex as re
 
+#loading env variables
 def configure():
     load_dotenv()
 
@@ -41,6 +43,7 @@ def get_game_data(api_key, base_url)->list:
             desc_response = requests.get(f"{base_url}/games/{game_id}?key={api_key}")
             desc_response.raise_for_status()
             game["description"] = desc_response.json().get("description")
+        
 
 
 
@@ -56,7 +59,11 @@ def automate_email(games_data:list)->None:
     smtp_server= 'smtp.gmail.com'
     port= 587
     email=  os.getenv("EMAIL")
+    if not email:
+        raise ValueError("EMAIL environment variable is not set")
     password=  os.getenv("PASSWORD")
+    if not password:
+        raise ValueError("PASSWORD environment variable is not set")
     smtp_username= email
     smtp_password=password
     sender=email
@@ -65,12 +72,14 @@ def automate_email(games_data:list)->None:
     #creating email object with MIMEtext
     body = "Here are the games released in the last week:\n\n"
     for game in games_data:
-        body.replace(/<\/?[^>]+>/gi, '')
-        body += f"Name: {game['name']}\n"
-        body += f"Released: {game['released']}\n"
-        body += f"Genres: {', '.join([genre['name'] for genre in game['genres']])}\n"
-        body += f"Description: {game.get('description', 'No description available')}\n"
+        body += f"Name: {game['name']}\n\n"
+        body += f"Released: {game['released']}\n\n"
+        body += f"Genres: {', '.join([genre['name'] for genre in game['genres']])}\n\n"
+        body += f"Description: {game.get('description', 'No description available')}\n\n"
         body += "\n"
+        #removing html tags
+        body = re.sub('<[^<]+?>', '', body)
+    
 
     msg = MIMEText(body)
     msg['Subject']="games released this week"
@@ -92,16 +101,12 @@ def automate_email(games_data:list)->None:
         print(f"error:{e}")
 
         
-    
-   
-
 def main():
     api_key, base_url = rawg_api()
     games = get_game_data(api_key, base_url)
-    print(automate_email(games))
+    automate_email(games)
 
     
-
 if __name__ == "__main__":
     main()
 
