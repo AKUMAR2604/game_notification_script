@@ -1,23 +1,52 @@
-# game_notification_script
+<h1> 🎮 RAWG Weekly Game Release Tracker </h1>
 
-This Python script fetches video game releases from the past week using the RAWG API and sends them via email. It's designed to run automatically every week using crontab.
+<h2>📡 Project Overview</h2>
+<p>This Python script leverages the RAWG API to curate and deliver a weekly digest of fresh game launches directly to your inbox.</p>
 
-Features
-Fetches game releases from the RAWG API
+<h2>✨ Features </h2>
 
-Filters games released in the last 7 days
+<p>🌐 Comprehensive Game Data: Fetch detailed information from RAWG API</p>
+<p>📅 Weekly Tracking: Automatically capture games released in the past week</p>
+<p>📧 Automated Emails: Seamless delivery of game updates</p>
+<p>🔒 Secure Credentials: Environment-based configuration</p>
 
-Formats the data into a readable email
 
-Sends the weekly digest via SMTP
+🚀 Quick Start
+Prerequisites
 
-Automated scheduling with crontab
+ Python 3.8+
+ RAWG API Key
+ Email Account (Gmail recommended)
+ Basic terminal knowledge
 
-<h1>Prerequisites<h1></h1>
-Python 3.6+
+<h2>Installation</h2>
+<p> 
+git clone https://github.com/AKUMAR2604/game_notification_script.git
 
-RAWG API key (get it from RAWG.io)
+<h2> Create virtual environment </h2>
+python3 -m venv venv
+source venv/bin/activate
+</p>
 
-SMTP credentials for sending emails
 
-Required Python packages (install via pip install -r requirements.txt)
+📋 Requirements
+<p> 
+Copyrequests ==2.28.2
+  <p> 
+python-dotenv ==1.0.0
+  </p>
+</p>
+
+🔒 Licensing
+Distributed under the MIT License.
+
+<h2> 🎲 Powered By </h2>
+
+RAWG API
+Python
+
+
+🚨 Disclaimer
+This project uses the RAWG API. Ensure compliance with their Terms of Service.
+
+
