@@ -13,7 +13,7 @@ Sends the weekly digest via SMTP
 
 Automated scheduling with crontab
 
-Prerequisites
+<h1>Prerequisites<h1></h1>
 Python 3.6+
 
 RAWG API key (get it from RAWG.io)
